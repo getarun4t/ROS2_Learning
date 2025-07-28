@@ -1,0 +1,23 @@
+# ROS 2 build artifacts and logs
+build/
+install/
+log/
+
+# VS Code specific files you might not want to share
+.vscode/
+
+# Python specific ignores
+*.pyc
+__pycache__/
+
+# C++ specific ignores
+*.o
+*.a
+*.so
+*.dll
+*.exe
+
+# Other common temporary files
+*.swp
+*~
+.DS_Store
