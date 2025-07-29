@@ -22,7 +22,9 @@ setup(
         'console_scripts': [
             "py_node = mathi_pkg.first_node:main",
             "robot_news_station = mathi_pkg.robot_news_station:main",
-            "smart_phone = mathi_pkg.smart_phone:main"
+            "smart_phone = mathi_pkg.smart_phone:main",
+            "number_publisher = mathi_pkg.number_publisher:main",
+            "number_counter = mathi_pkg.number_counter:main"
         ],
     },
 )
