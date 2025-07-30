@@ -26,7 +26,8 @@ setup(
             "number_publisher = mathi_pkg.number_publisher:main",
             "number_counter = mathi_pkg.number_counter:main",
             "add_two_ints_server = mathi_pkg.add_two_ints_server:main",
-            "add_two_ints_client_no_oop = mathi_pkg.add_two_ints_client_no_oop:main"
+            "add_two_ints_client_no_oop = mathi_pkg.add_two_ints_client_no_oop:main",
+            "add_two_ints_client = mathi_pkg.add_two_ints_client:main"
         ],
     },
 )
