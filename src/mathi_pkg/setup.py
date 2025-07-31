@@ -28,7 +28,8 @@ setup(
             "add_two_ints_server = mathi_pkg.add_two_ints_server:main",
             "add_two_ints_client_no_oop = mathi_pkg.add_two_ints_client_no_oop:main",
             "add_two_ints_client = mathi_pkg.add_two_ints_client:main",
-            "hardware_status_publisher = mathi_pkg.hardware_status_publisher:main"
+            "hardware_status_publisher = mathi_pkg.hardware_status_publisher:main",
+            "led_panel = mathi_pkg.led_panel:main"
         ],
     },
 )
