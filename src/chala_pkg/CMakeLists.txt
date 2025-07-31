@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(example_interfaces REQUIRED)
+find_package(my_robot_interfaces REQUIRED)
 
 add_executable(chala_cpp_node src/first_node.cpp)
 ament_target_dependencies(chala_cpp_node rclcpp)
@@ -28,6 +29,10 @@ ament_target_dependencies(add_two_ints_client_no_oop rclcpp example_interfaces)
 add_executable(add_two_ints_client src/add_two_ints_client.cpp)
 ament_target_dependencies(add_two_ints_client rclcpp example_interfaces)
 
+add_executable(hardware_status_publisher src/hardware_status_publisher.cpp)
+ament_target_dependencies(hardware_status_publisher rclcpp my_robot_interfaces)
+
+
 install(TARGETS
   chala_cpp_node
   robots_news_station
@@ -35,6 +40,7 @@ install(TARGETS
   add_two_ints_server
   add_two_ints_client_no_oop
   add_two_ints_client
+  hardware_status_publisher
   DESTINATION lib/${PROJECT_NAME}
 )
 
