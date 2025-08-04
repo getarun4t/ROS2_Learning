@@ -1,4 +1,10 @@
 <launch>
-    <node pkg="mathi_pkg"  exec="number_publisher" />
-    <node pkg="mathi_pkg"  exec="number_counter" />
+    <node pkg="mathi_pkg"  exec="number_publisher" name="new_number_publisher">
+        <remap from="number" to="/new_number" />
+        <param name="number" value="6" />
+        <param name="timer_period" value="1.5"/>
+    </node>
+    <node pkg="mathi_pkg"  exec="number_counter" name="new_number_counter">
+        <remap from="number" to="/new_number" />
+    </node>
 </launch>
