@@ -1,10 +1,11 @@
 <launch>
-    <node pkg="mathi_pkg"  exec="number_publisher" name="new_number_publisher">
-        <remap from="number" to="/new_number" />
-        <param name="number" value="6" />
-        <param name="timer_period" value="1.5"/>
+    <node pkg="mathi_pkg"  exec="number_publisher" name="new_number_publisher" namespace="/Kannan">
+        <remap from="number" to="new_number" />
+        <!-- <param name="number" value="6" />
+        <param name="timer_period" value="1.5"/> -->
+        <param from="$(find-pkg-share my_robot_bringup)/config/number_app.yaml" />
     </node>
-    <node pkg="mathi_pkg"  exec="number_counter" name="new_number_counter">
-        <remap from="number" to="/new_number" />
+    <node pkg="mathi_pkg"  exec="number_counter" name="new_number_counter" namespace="/Kannan">
+        <remap from="number" to="new_number" />
     </node>
 </launch>

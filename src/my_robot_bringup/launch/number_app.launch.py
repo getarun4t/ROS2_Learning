@@ -7,6 +7,11 @@ def generate_launch_description():
     number_publisher = Node(
         package="mathi_pkg",
         executable="number_publisher"
+        remappings=[("number", "/new_number")]
+        parameters=[
+            {"number" : 12},
+            {"timer_period" : 2.2}
+        ]
     )
 
     number_counter = Node(
