@@ -1,0 +1,18 @@
+<launch>
+    <node pkg="mathi_pkg" exec="robot_news_station" name="robot_news_station_1">
+        <param name="robot_name" value="Veruthe" />
+    </node>
+    <node pkg="mathi_pkg" exec="robot_news_station" name="robot_news_station_2">
+        <param name="robot_name" value="Chumma" />
+    </node>
+    <node pkg="mathi_pkg" exec="robot_news_station" name="robot_news_station_3">
+        <param name="robot_name" value="Poda" />
+    </node>
+    <node pkg="mathi_pkg" exec="robot_news_station" name="robot_news_station_4">
+        <param name="robot_name" value="Thendi" />
+    </node>
+    <node pkg="mathi_pkg" exec="robot_news_station" name="robot_news_station_5">
+        <param name="robot_name" value="Thengakola" />
+    </node>
+    <node pkg="mathi_pkg" exec="smart_phone" />
+</launch>
