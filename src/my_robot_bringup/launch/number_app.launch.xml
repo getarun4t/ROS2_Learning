@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="mathi_pkg"  exec="number_publisher" />
+    <node pkg="mathi_pkg"  exec="number_counter" />
+</launch>
