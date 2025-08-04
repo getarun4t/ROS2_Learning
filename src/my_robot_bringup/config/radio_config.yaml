@@ -1,0 +1,15 @@
+robot_news_station_1:
+  ros__parameters:
+    robot_name: "Onnu"
+robot_news_station_2:
+  ros__parameters:
+    robot_name: "Randu"
+robot_news_station_3:
+  ros__parameters:
+    robot_name: "Moonnu"
+robot_news_station_4:
+  ros__parameters:
+    robot_name: "Nalu"
+robot_news_station_5:
+  ros__parameters:
+    robot_name: "Anju"

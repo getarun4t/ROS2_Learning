@@ -1,0 +1,18 @@
+<launch>
+    <node pkg="mathi_pkg" exec="robot_news_station" name="robot_news_station_1">
+        <param from="$(find-pkg-share my_robot_bringup)/config/radio_config.yaml" />
+    </node>
+    <node pkg="mathi_pkg" exec="robot_news_station" name="robot_news_station_2">
+        <param from="$(find-pkg-share my_robot_bringup)/config/radio_config.yaml" />
+    </node>
+    <node pkg="mathi_pkg" exec="robot_news_station" name="robot_news_station_3">
+        <param from="$(find-pkg-share my_robot_bringup)/config/radio_config.yaml" />
+    </node>
+    <node pkg="mathi_pkg" exec="robot_news_station" name="robot_news_station_4">
+        <param from="$(find-pkg-share my_robot_bringup)/config/radio_config.yaml" />
+    </node>
+    <node pkg="mathi_pkg" exec="robot_news_station" name="robot_news_station_5">
+        <param from="$(find-pkg-share my_robot_bringup)/config/radio_config.yaml" />
+    </node>
+    <node pkg="mathi_pkg" exec="smart_phone" />
+</launch>
