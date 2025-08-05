@@ -1,18 +1,26 @@
 #!/usr/bin/env python3
-from functools import partial
 import rclpy
-from rclpy.node import Node
-from turtlesim.srv import Spawn 
 import random
 import math
+from functools import partial
+from rclpy.node import Node
+from turtlesim.srv import Spawn 
+from my_robot_interfaces.msg import Turtle, TurtleArray
  
 class TurtleSpawnerNode(Node): 
     def __init__(self):
         super().__init__("turle_spawner") 
         self.turtle_name_prefix = "Turtle"
         self.turtle_counter = 0
+        self.alive_turtles_: TurtleArray = []
+        self.alive_turtles_publisher_ = self.create_publisher(TurtleArray, "alive_turtles", 10)
         self.spawn_client_ = self.create_client(Spawn, "/spawn")
         self.spawn_turtle_timer_ = self.create_timer(2.0, self.spawn_new_turtle)
+
+    def publish_alive_turtles(self):
+        msg = TurtleArray()
+        msg.turtles = self.alive_turtles_
+        self.alive_turtles_publisher_.publish(msg)
 
     def spawn_new_turtle(self):
         self.turtle_counter+=1
@@ -35,10 +43,17 @@ class TurtleSpawnerNode(Node):
         future = self.spawn_client_.call_async(request)
         future.add_done_callback(partial(self.callback_call_spawn_service, request=request))
 
-    def callback_call_spawn_service(self, future, request):
+    def callback_call_spawn_service(self, future, request: Spawn.Request):
         response: Spawn.Response = future.result()
         if response.name != "":
             self.get_logger().info("New alive turtle: "+ response.name)
+            new_turtle = Turtle()
+            new_turtle.name = response.name
+            new_turtle.x = request.x
+            new_turtle.y = request.y
+            new_turtle.theta = request.theta
+            self.alive_turtles_.append(new_turtle)
+            self.publish_alive_turtles()
 
         
  
