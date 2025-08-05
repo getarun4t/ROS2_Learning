@@ -12,8 +12,11 @@ from my_robot_interfaces.srv import CatchTurtle
 class TurtleControllerNode(Node): 
     def __init__(self):
         super().__init__("turtle_controller") 
+
+        self.declare_parameter("catch_closest_turtle_first", True)
+
         self.turtle_to_catch_: Turtle = None
-        self.catch_closest_turtle_first = True
+        self.catch_closest_turtle_first = self.get_parameter("catch_closest_turtle_first").value
         self.pose_: Pose = None
         self.cmd_vel_publisher_ = self.create_publisher(Twist, "/turtle1/cmd_vel", 10)
         self.pose_subscriber_ = self.create_subscription(Pose, "/turtle1/pose", self.callback_pose, 10)
@@ -35,7 +38,7 @@ class TurtleControllerNode(Node):
                     if closest_turtle == None or distance < closest_turtle_distance:
                         closest_turtle = turtle
                         closest_turtle_distance = distance
-                        
+
                 self.turtle_to_catch_ = closest_turtle        
             else:
                 self.turtle_to_catch_ = msg.turtles[0]
