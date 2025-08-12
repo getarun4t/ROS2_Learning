@@ -19,5 +19,4 @@
         </node>
 
         <node pkg="rviz2" exec="rviz2" output="screen" args="-d $(var rviz_config_path)"></node>
-
 </launch>
