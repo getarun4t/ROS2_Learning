@@ -86,9 +86,9 @@
         <axis xyz="0 1 0"></axis>
     </joint>
 
-    <joint name="base_castor_wheel_joint" type="continuous">
-        <parent link="base_link"></parent>
-        <child link="castor_wheel_link"></child>
-        <origin xyz="${base_length / 3.00} 0 ${-(wheel_radius/2)}" rpy="0 0 0"></origin>
+    <joint name="base_castor_wheel_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="castor_wheel_link"/>
+        <origin xyz="${base_length / 3.00} 0 ${-(wheel_radius/2)}" rpy="0 0 0"/>
     </joint>
 </robot>
