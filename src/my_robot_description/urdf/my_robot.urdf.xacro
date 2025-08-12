@@ -5,4 +5,13 @@
     <xacro:include  filename="mobile_base.xacro"></xacro:include>
     <xacro:include  filename="mobile_base_gazebo.xacro"></xacro:include>
     <xacro:include  filename="camera.xacro"></xacro:include>
+
+    <xacro:include  filename="arm.xacro"></xacro:include>
+    <xacro:include  filename="arm_gazebo.xacro"></xacro:include>
+
+    <joint name="mobile_base_arm_joint" type="fixed">
+        <parent link="base_link"></parent>
+        <child link="arm_base_link"></child>
+        <origin xyz="${base_length / 4.0} 0 ${base_height}" rpy="0 0 0"></origin>
+    </joint> 
 </robot>
