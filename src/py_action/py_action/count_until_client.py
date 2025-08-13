@@ -2,7 +2,7 @@
 import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
-from rclpy.action.client import ClientGoalHandle
+from rclpy.action.client import ClientGoalHandle, GoalStatus
 from my_robot_interfaces.action import CountUntil
  
 class CountUntilClientNode(Node): 
@@ -31,7 +31,12 @@ class CountUntilClientNode(Node):
             self.get_logger().error("Goal rejected by Server")
 
     def goalResult_callback(self, future):
+        status = future.result().status
         result = future.result().result
+        if status == GoalStatus.STATUS_SUCCEEDED:
+            self.get_logger().info("Success")
+        elif GoalStatus.STATUS_ABORTED:
+            self.get_logger().info("Aborted")
         self.get_logger().info("Result: " + str(result.reached_number))
 
     
@@ -39,7 +44,7 @@ class CountUntilClientNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = CountUntilClientNode() 
-    node.send_goal(-6, 1.0)
+    node.send_goal(6, 1.0)
     rclpy.spin(node)
     rclpy.shutdown()
  
