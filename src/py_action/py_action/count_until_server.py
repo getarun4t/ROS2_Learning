@@ -2,7 +2,7 @@
 import rclpy
 import time
 from rclpy.node import Node
-from rclpy.action import ActionServer
+from rclpy.action import ActionServer, GoalResponse
 from rclpy.action.server import ServerGoalHandle
 from my_robot_interfaces.action import CountUntil
  
@@ -10,8 +10,20 @@ from my_robot_interfaces.action import CountUntil
 class CountUntilServerNode(Node): 
     def __init__(self):
         super().__init__("count_until_server")
-        self.count_until_server_ =  ActionServer(self, CountUntil, "count_until", execute_callback=self.execute_callback)
+        self.count_until_server_ =  ActionServer(self, CountUntil, "count_until", goal_callback=self.goal_callback, execute_callback=self.execute_callback)
         self.get_logger().info("Action Server has been started")
+
+    # Used for validating the arguments of the request
+    def goal_callback(self, goal_request: CountUntil.Goal):
+        self.get_logger().info("Received a Goal")
+
+        # Validate arguments of the call
+        if goal_request.target_number <= 0:
+            self.get_logger().warn("Rejecting the Goal")
+            return GoalResponse.REJECT
+        self.get_logger().info("Accepting the Goal")
+        return GoalResponse.ACCEPT
+
 
     def execute_callback(self, goal_handle: ServerGoalHandle):
         # Get request from the goal
