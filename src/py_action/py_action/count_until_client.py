@@ -20,7 +20,7 @@ class CountUntilClientNode(Node):
 
         # Send the goal
         self.get_logger().info("Sending the goal")
-        self.count_until_client_.send_goal_async(goal).add_done_callback(self.sendGoal_callback)
+        self.count_until_client_.send_goal_async(goal, feedback_callback=self.goalFeedback_callback).add_done_callback(self.sendGoal_callback)
 
     def sendGoal_callback(self, future):
         self.goal_handle_: ClientGoalHandle = future.result()
@@ -39,7 +39,9 @@ class CountUntilClientNode(Node):
             self.get_logger().info("Aborted")
         self.get_logger().info("Result: " + str(result.reached_number))
 
-    
+    def goalFeedback_callback(self, feedback_msg):
+        number = feedback_msg.feedback.current_number
+        self.get_logger().info("Got feedback: " + str(number))
  
 def main(args=None):
     rclpy.init(args=args)
