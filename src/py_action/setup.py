@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "count_until_server = py_action.count_until_server:main"
+            "count_until_server = py_action.count_until_server:main",
+            "count_until_client = py_action.count_until_client:main"
         ],
     },
 )
