@@ -25,13 +25,20 @@ class CountUntilServerNode(Node):
         # Policy: Refuse new goal if current goal is active
         #with self.goal_lock_:
         #    if self.goal_handle_ is not None and self.goal_handle_.is_active:
-        #        self.get_logger().warn("A goal is already active, rejecting new gaol")
+        #        self.get_logger().warn("A goal is already active, rejecting new goal")
         #        return GoalResponse.REJECT
 
         # Validate arguments of the call
         if goal_request.target_number <= 0:
             self.get_logger().warn("Rejecting the Goal")
             return GoalResponse.REJECT
+        
+        #Policy: Preempt existing goal when new goal received (TODO:pending fixes)
+        #with self.goal_lock_:
+        #    if self.goal_handle_ is not None and self.goal_handle_.is_active:
+        #        self.get_logger().warn("New goal received, aborting")
+        #        self.goal_handle_.abort()
+
         self.get_logger().info("Accepting the Goal")
         return GoalResponse.ACCEPT
 
@@ -50,11 +57,17 @@ class CountUntilServerNode(Node):
         result = CountUntil.Result()
         counter = 0
         for i in range(target_number):
+            if not self.goal_handle_.is_active:
+                result.reached_number = counter
+                self.get_logger().warn("Aborting the goal, returning: " + str(counter))
+                return result
+
             if goal_handle.is_cancel_requested:
                 self.get_logger().info("Cancelling the goal")
                 goal_handle.canceled()
                 result.reached_number = counter
                 return result
+            
             counter+=1
             self.get_logger().info(str(counter))
             feedback.current_number = counter
