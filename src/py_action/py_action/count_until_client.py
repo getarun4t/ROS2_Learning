@@ -23,7 +23,7 @@ class CountUntilClientNode(Node):
         self.count_until_client_.send_goal_async(goal, feedback_callback=self.goalFeedback_callback).add_done_callback(self.sendGoal_callback)
 
         # Test Cancel by sending a request 2 seconds later
-        self.timer_ = self.create_timer(2.0, self.cancel_goal)
+      #  self.timer_ = self.create_timer(2.0, self.cancel_goal)
 
     def cancel_goal(self):
         self.get_logger().warn("Sending a cancel request to Server")
