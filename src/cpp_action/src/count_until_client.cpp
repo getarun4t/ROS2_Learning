@@ -39,6 +39,14 @@ private:
 
     //Callback to receive result once goal is done
     void resultCallBack(const CountUntilGoalHandle::WrappedResult &result){
+        auto status = result.code;
+        if (status == rclcpp_action::ResultCode::SUCCEEDED){
+            RCLCPP_INFO(get_logger(), "Goal Succeeded");
+        }
+        else if (status == rclcpp_action::ResultCode::ABORTED){
+            RCLCPP_ERROR(get_logger(), "Goal Aborted");
+        }
+
         int reached_number = result.result->reached_number;
         RCLCPP_INFO(get_logger(), "Result : %d", reached_number);
     }
