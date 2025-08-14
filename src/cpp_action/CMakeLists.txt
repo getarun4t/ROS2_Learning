@@ -11,5 +11,13 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(my_robot_interfaces REQUIRED)
 
+add_executable(count_until_server src/count_until_server.cpp)
+
+ament_target_dependencies(count_until_server rclcpp rclcpp_action my_robot_interfaces)
+
+install(TARGETS
+  count_until_server
+  DESTINATION lib/${PROJECT_NAME}/
+)
 
 ament_package()

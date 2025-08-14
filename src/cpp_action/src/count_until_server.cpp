@@ -27,16 +27,20 @@ private:
     rclcpp_action::GoalResponse goal_callback(
         const rclcpp_action::GoalUUID &uuid, 
         std::shared_ptr<const CountUntil::Goal> goal){
+            (void) uuid;
+            (void) goal;
             return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
         }
 
     rclcpp_action::CancelResponse cancel_callback(
         const std::shared_ptr<CountUntilGoalHandle> goal_handle){
+            (void) goal_handle;
             return rclcpp_action::CancelResponse::ACCEPT;
         }
     
     void handle_accepted_callback_callback(
         const std::shared_ptr<CountUntilGoalHandle> goal_handle){
+            RCLCPP_INFO(get_logger(), "Executing the goal");
             execute_goal(goal_handle);
         }
 
