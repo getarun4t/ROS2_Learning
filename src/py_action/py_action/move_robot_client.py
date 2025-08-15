@@ -54,7 +54,7 @@ class MoveRobotClientNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = MoveRobotClientNode() 
-    node.send_goal(-76, 7)
+    node.send_goal(76, 7)
     rclpy.spin(node)
     rclpy.shutdown()
  
