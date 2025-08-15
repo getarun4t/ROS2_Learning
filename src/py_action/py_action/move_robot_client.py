@@ -31,7 +31,7 @@ class MoveRobotClientNode(Node):
             self.get_logger().info("Goal Accepted")
             goal_handle.get_result_async().add_done_callback(self.goal_result_callback)
         else:
-            self.get_logger().info("Goal Rejected")
+            self.get_logger().error("Goal Rejected")
 
     def goal_result_callback(self, future):
         status = future.result().status
@@ -54,7 +54,7 @@ class MoveRobotClientNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = MoveRobotClientNode() 
-    node.send_goal(76, 7)
+    node.send_goal(-76, 7)
     rclpy.spin(node)
     rclpy.shutdown()
  
