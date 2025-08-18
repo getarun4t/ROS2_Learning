@@ -29,7 +29,6 @@ public:
  
 private:
     int robot_position_;
-    rclcpp::CallbackGroup::SharedPtr call_back_group_;
     std::mutex mutex_;
     std::shared_ptr<MoveRobotGoalHandle> goal_handle_;
     
@@ -62,6 +61,7 @@ private:
                 }
             }
 
+            RCLCPP_INFO(get_logger(), "Accepted the goal");
             return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
         }
 
@@ -102,12 +102,12 @@ private:
                 //Check if pre-empt required
                 {
                     std::lock_guard<std::mutex> lock(mutex_);
-                        if(goal_handle_->get_goal_id() == preempted_goal_id){
-                        result->position = robot_position_;
-                        result->message = "Pre-empted by another goal";
-                        goal_handle->abort(result);
-                        return;
-                    }
+                        if(goal_handle->get_goal_id() == preempted_goal_id){
+                            result->position = robot_position_;
+                            result->message = "Pre-empted by another goal";
+                            goal_handle->abort(result);
+                            return;
+                        }
                 }
 
                 //Check if cancelling
@@ -119,7 +119,7 @@ private:
                     }
                     else{
                         result->message = "Cancelled";
-                        goal_handle->succeed(result);
+                        goal_handle->canceled(result);
                     }
                     return;
                 }
