@@ -1,0 +1,8 @@
+<launch>
+    <let name = "number_node_name" value="Chumma_peru"></let>
+
+    <node pkg="lifecycle_cpp" exec="number_publisher" name="$(var number_node_name)"></node>
+    <node pkg="lifecycle_py" exec="lifecycle_node_manager" name="Rajavu">
+        <param name="managed_node_name" value="$(var number_node_name)"></param>
+    </node>
+</launch>

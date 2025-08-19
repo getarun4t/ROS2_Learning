@@ -1,19 +1,17 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>my_robot_bringup</name>
+  <name>lifecycle_cpp</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="aruntdpa@gmail.com">kannan</maintainer>
+  <maintainer email="todo.todo@todo.com">ed</maintainer>
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <exec_depend>mathi_pkg</exec_depend>
-  <exec_depend>turtlesim</exec_depend>
-  <exec_depend>turtlesim_catch_them_all</exec_depend>
-  <exec_depend>lifecycle_py</exec_depend>
-  <exec_depend>lifecycle_cpp</exec_depend>
+  <depend>rclcpp</depend>
+  <depend>example_interfaces</depend>
+  <depend>rclcpp_lifecycle</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
