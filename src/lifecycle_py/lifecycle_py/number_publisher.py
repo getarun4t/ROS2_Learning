@@ -19,16 +19,19 @@ class NumberPublisherNode(LifecycleNode):
         self.get_logger().info("In On Configure")
         self.number_publisher_ = self.create_lifecycle_publisher(Int64, "number", 10)
         self.number_timer_ = self.create_timer(1.0 / self.publish_frequency_, self.publish_number)
+        self.number_timer_.cancel()
         return TransitionCallbackReturn.SUCCESS
     
     # Activate/Enable HW
     def on_activate(self, previous_state: LifecycleState):
         self.get_logger().info("In On Activate")
+        self.number_timer_.reset()
         return super().on_activate(previous_state)
     
     # Deactivate/Disable HW
     def on_deactivate(self, previous_state: LifecycleState):
         self.get_logger().info("In On Deactivate")
+        self.number_timer_.cancel()
         return super().on_deactivate(previous_state)
 
     # Destroy ROS2 communications, disconnect HW etc.
