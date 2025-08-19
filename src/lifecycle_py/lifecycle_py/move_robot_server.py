@@ -17,6 +17,7 @@ class MoveRobotServerNode(LifecycleNode):
         self.goal_handle_:ServerGoalHandle = None
         self.goal_lock_ = threading.Lock()
         self.server_activated_ = False
+        self.get_logger().info("Robot position: "+ str(self.robot_position_))
 
     def on_configure(self, previous_state: LifecycleState):
         self.get_logger().info("In On Configure")
