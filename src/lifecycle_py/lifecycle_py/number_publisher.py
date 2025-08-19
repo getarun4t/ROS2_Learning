@@ -41,6 +41,17 @@ class NumberPublisherNode(LifecycleNode):
         self.destroy_timer(self.number_timer_)
         return TransitionCallbackReturn.SUCCESS
     
+    # Process errors, deactivate/fix errors
+    # Better to use try/catch instead of using on_error
+    def on_error(self, previous_state: LifecycleState):
+        self.get_logger().info("In On Error")
+        self.destroy_lifecycle_publisher(self.number_publisher_)
+        self.destroy_timer(self.number_timer_)
+        # do checks and return SUCCESS or not return failure
+        # if issues can be fixed/reset return success
+        # if success, it brings back to previous_state automatically
+        return TransitionCallbackReturn.SUCCESS
+    
     def on_shutdown(self, previous_state: LifecycleState):
         self.get_logger().info("In On Shutdown")
         self.destroy_lifecycle_publisher(self.number_publisher_)
