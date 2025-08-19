@@ -13,6 +13,7 @@
   <exec_depend>turtlesim</exec_depend>
   <exec_depend>turtlesim_catch_them_all</exec_depend>
   <exec_depend>lifecycle_py</exec_depend>
+  <exec_depend>lifecycle_cpp</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
