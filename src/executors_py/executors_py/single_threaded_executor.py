@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
+from rclpy.executors import SingleThreadedExecutor
 import time
 
 
@@ -27,7 +28,9 @@ class Node1(Node):
 def main(args=None):
     rclpy.init(args=args)
     node1 = Node1()
-    rclpy.spin(node1)
+    executor = SingleThreadedExecutor()
+    executor.add_node(node1)
+    executor.spin()
     rclpy.shutdown()
 
 
