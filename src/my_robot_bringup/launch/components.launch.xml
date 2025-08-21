@@ -1,0 +1,7 @@
+<launch>
+    <node pkg="rclcpp_components" exec="component_container" name="my_container"></node>
+    
+    <executable cmd="ros2 component load /my_container components_cpp my_namespace::NumberPublisher -r __node:=number_publisher_1" output="screen"></executable>
+    <executable cmd="ros2 component load /my_container components_cpp my_namespace::NumberPublisher -r __node:=number_publisher_2" output="screen"></executable>
+
+</launch>
