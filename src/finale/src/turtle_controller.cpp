@@ -1,7 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "turtlesim/srv/kill.hpp"
 #include "turtlesim/srv/spawn.hpp"
- 
 
 using Spawn = turtlesim::srv::Spawn;
 using Kill = turtlesim::srv::Kill;
@@ -15,14 +14,22 @@ public:
             "turtle_name", 
             rclcpp::PARAMETER_STRING
         );
-        turtle_name_ = get_parameter("turle_name").as_string();
+        turtle_name_ = get_parameter("turtle_name").as_string();
+
+        cb_group_ = create_callback_group(rclcpp::CallbackGroupType::Reentrant);
 
         spawn_turtle_client_ = create_client<Spawn>(
-            "/spawn"
+            "/spawn",
+            rclcpp::ServicesQoS(),
+            cb_group_
         );
         kill_turtle_client_ = create_client<Kill>(
-            "/kill"
+            "/kill",
+            rclcpp::ServicesQoS(),
+            cb_group_
         );
+
+        spawn_turtle_thread_ = std::thread(std::bind(&TurtleController::spawn_turtle, this));
     }
  
 private:
@@ -30,6 +37,10 @@ private:
 
     rclcpp::Client<Spawn>::SharedPtr spawn_turtle_client_;
     rclcpp::Client<Kill>::SharedPtr kill_turtle_client_;
+    rclcpp::CallbackGroup::SharedPtr cb_group_;
+
+    std::thread spawn_turtle_thread_;
+    std::thread kill_turtle_thread_;
 
     void spawn_turtle(){
         spawn_turtle_client_->wait_for_service();
@@ -44,6 +55,9 @@ private:
         auto result = spawn_turtle_client_->async_send_request(request);
 
         RCLCPP_INFO(get_logger(), "Spawned turle : %s", result.get()->name.c_str());
+
+        std::this_thread::sleep_for(std::chrono::seconds(3));
+        kill_turtle_thread_ = std::thread(std::bind(&TurtleController::kill_turtle, this));
 
     }
 
@@ -64,7 +78,9 @@ int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
     auto node = std::make_shared<TurtleController>(); 
-    rclcpp::spin(node);
+    rclcpp::executors::MultiThreadedExecutor executor;
+    executor.add_node(node);
+    executor.spin();
     rclcpp::shutdown();
     return 0;
 }
