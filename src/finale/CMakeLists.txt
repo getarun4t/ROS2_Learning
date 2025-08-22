@@ -12,10 +12,11 @@ find_package(rclcpp_action REQUIRED)
 find_package(turtlesim REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(my_robot_interfaces REQUIRED)
+find_package(rclcpp_lifecycle REQUIRED)
 
 add_executable(finale src/turtle_controller.cpp)
 
-ament_target_dependencies(finale rclcpp rclcpp_action turtlesim geometry_msgs my_robot_interfaces)
+ament_target_dependencies(finale rclcpp rclcpp_lifecycle rclcpp_action turtlesim geometry_msgs my_robot_interfaces)
 
 install(TARGETS
   finale
