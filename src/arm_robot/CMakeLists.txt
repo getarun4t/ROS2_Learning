@@ -12,3 +12,5 @@ install(
   DIRECTORY launch rviz urdf
   DESTINATION share/${PROJECT_NAME}
 )
+
+ament_package()
