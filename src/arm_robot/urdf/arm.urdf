@@ -6,6 +6,10 @@
         <color rgba="0.5 0.5 0.5 1"></color>
     </material>
 
+    <material name="blue">
+        <color rgba="0 0 0.5 1"></color>
+    </material>
+
     <link name = "base_link">
         <visual>
             <geometry>
@@ -15,4 +19,23 @@
             <material name="grey"></material>
         </visual>
     </link>
+
+    <link name="shoulder_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.5" radius="0.1">
+                </cylinder>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"></origin>
+            <material name='blue'></material>
+        </visual>
+    </link>
+
+    <joint name = "joint1" type="revolute">
+        <parent link="base_link"></parent>
+        <child link="shoulder_link"></child>
+        <origin xyz="0 0 0" rpy="0 0 0"></origin>
+        <axis xyz="1 0 0"></axis>
+        <limit  effort="1000.0" velocity="1.0" lower="-3.14" upper="3.14"></limit>
+    </joint>
 </robot>
