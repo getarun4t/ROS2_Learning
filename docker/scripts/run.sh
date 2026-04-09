@@ -2,7 +2,12 @@
 
 CONTAINER_NAME="ros2_jazzy"
 
-WS_PATH="$(pwd)/ros2_ws"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+WS_PATH="$PROJECT_ROOT/ros2_ws"
+
+echo "Workspace path: $WS_PATH"
 
 docker run -it --rm \
     --name $CONTAINER_NAME \
