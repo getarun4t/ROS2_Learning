@@ -11,7 +11,9 @@
   "runArgs": [
     "--network=host",
     "--ipc=host",
+    "--gpus=all", 
     "-e", "DISPLAY",
+    "-e", "NVIDIA_DRIVER_CAPABILITIES=all",
     "-v", "/tmp/.X11-unix:/tmp/.X11-unix"
   ],
 
@@ -22,5 +24,7 @@
         "ms-vscode.cpptools"
       ]
     }
-  }
+  },
+
+  "remoteUser": "root"
 }
