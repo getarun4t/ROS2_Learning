@@ -2,7 +2,6 @@
 build/
 install/
 log/
-.devcontainer/
 
 # VS Code specific files you might not want to share
 .vscode/

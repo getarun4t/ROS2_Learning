@@ -1,0 +1,26 @@
+{
+  "name": "ROS2 Jazzy Dev",
+
+  "build": {
+    "dockerfile": "../docker/dockerfiles/ros2.Dockerfile",
+    "context": ".."
+  },
+
+  "workspaceFolder": "/workspaces/ROS2_Learning",
+
+  "runArgs": [
+    "--network=host",
+    "--ipc=host",
+    "-e", "DISPLAY",
+    "-v", "/tmp/.X11-unix:/tmp/.X11-unix"
+  ],
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-iot.vscode-ros",
+        "ms-vscode.cpptools"
+      ]
+    }
+  }
+}
